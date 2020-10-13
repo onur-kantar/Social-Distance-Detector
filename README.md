@@ -1,2 +1,2 @@
 # Social-Distance-Detector
-It shows people who fit or do not comply with social distance by camera, screenshot or youtube video and records them as video.
+django app of this project
