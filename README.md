@@ -1,2 +1,2 @@
 # Social-Distance-Detector
-django app of this project
+Django app of this project
