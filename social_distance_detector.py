@@ -29,7 +29,7 @@ labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
 LABELS = open(labelsPath).read().strip().split("\n")
 
 # derive the paths to the YOLO weights and model configuration
-weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
+weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3-tiny.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
@@ -59,13 +59,15 @@ print(f"Layer Names: {ln}")
 # vs = cv2.VideoCapture(args["input"] if args["input"] else 0)
 writer = None
 # =============================================================================
+import time
 
 monitor = {"top": 160, "left": 160, "width": 700, "height": 700}
 
 with mss() as sct:
     # loop over the frames from the video stream
     while True:
-        # read the next frame from the file
+        start = time.time()
+		# read the next frame from the file
         image = sct.grab(monitor)
         image_np = np.array(image)
         frame = cv2.cvtColor(image_np, cv2.COLOR_RGBA2RGB)
@@ -146,3 +148,6 @@ with mss() as sct:
        	# video file
         if writer is not None:
        		writer.write(frame)
+
+        end = time.time()
+        print(1/(end-start))
