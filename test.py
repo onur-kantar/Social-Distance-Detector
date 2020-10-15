@@ -1,10 +1,12 @@
 # import required libraries
-from vidgear.gears import CamGear
+from vidgear.gears import ScreenGear
 import cv2
 
+# define dimensions of screen w.r.t to given monitor to be captured
+options = {'top': 40, 'left': 0, 'width': 100, 'height': 100}
 
-# Add YouTube Video URL as input source (for e.g https://youtu.be/dQw4w9WgXcQ) and enable `y_Tube`
-stream = CamGear(source='https://youtu.be/dQw4w9WgXcQ', y_tube=True, logging=True).start() 
+# open video stream with defined parameters
+stream = ScreenGear(monitor=1, logging=True, **options).start()
 
 # loop over
 while True:
