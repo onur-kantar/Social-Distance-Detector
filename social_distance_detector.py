@@ -84,8 +84,8 @@ if myinput == Option.file.value:
 		end = time.time()
 		print(1 / (end - start))
 elif myinput == Option.youtube.value:
-    url = 'https://youtu.be/wLgVGYIBb3I'
-    stream = CamGear(source = url, y_tube=True, logging=True).start()
+    myinput = input("Youtube URL'ini Giriniz: ")
+    stream = CamGear(source = myinput, y_tube=True, logging=True).start()
     while True:
         start = time.time()
 
