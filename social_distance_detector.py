@@ -27,7 +27,7 @@ labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
 LABELS = open(labelsPath).read().strip().split("\n")
 
 # derive the paths to the YOLO weights and model configuration
-weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
+weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3-tiny.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
