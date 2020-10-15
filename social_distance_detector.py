@@ -27,7 +27,7 @@ labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
 LABELS = open(labelsPath).read().strip().split("\n")
 
 # derive the paths to the YOLO weights and model configuration
-weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3-tiny.weights"])
+weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
@@ -110,7 +110,9 @@ elif myinput == Option.camera.value:
 	while True:
 		start = time.time()
 
-		frame = vs.read()
+		(grabbed, frame) = vs.read()
+		if not grabbed:
+			break
 		frame = imutils.resize(frame, width=700)
 		results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
 		draw(frame, results)
