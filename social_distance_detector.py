@@ -22,6 +22,10 @@ class Option(Enum):
 	camera = '2'
 	screen = '3'
 
+class Save(Enum):
+	no = '0'
+	yes = '1'
+
 # load the COCO class labels our YOLO model was trained on
 labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
 LABELS = open(labelsPath).read().strip().split("\n")
@@ -30,6 +34,7 @@ LABELS = open(labelsPath).read().strip().split("\n")
 weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
+print(weightsPath)
 # load our YOLO object detector trained on COCO dataset (80 classes)
 print("[INFO] loading YOLO from disk...")
 net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
@@ -60,6 +65,12 @@ print(Option.screen.value + ': Ekranı Kullan')
 
 myinput = input()
 
+print('Kaydetmek İstiyor Musun?:')
+print(Save.no.value + ': Hayır')
+print(Save.yes.value + ': Evet')
+
+save = input()
+
 writer = None
 
 if myinput == Option.file.value:
@@ -68,15 +79,17 @@ if myinput == Option.file.value:
 	vs = cv2.VideoCapture(myinput)
 	while True:
 		start = time.time()
-		frame = vs.read()
 
-		if frame is None:
+		(grabbed, frame) = vs.read()
+		if not grabbed:
 			break
 
 		frame = imutils.resize(frame, width=700)
 		results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
 		draw(frame, results)
-		writer = saveVideo(frame, writer)
+
+		if save == Save.yes.value:
+			writer = saveVideo(frame, writer)
 
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
@@ -88,7 +101,6 @@ elif myinput == Option.youtube.value:
     stream = CamGear(source = myinput, y_tube=True, logging=True).start()
     while True:
         start = time.time()
-
         frame = stream.read()
 
         if frame is None:
@@ -97,7 +109,9 @@ elif myinput == Option.youtube.value:
         frame = imutils.resize(frame, width=700)
         results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
         draw(frame, results)
-        writer = saveVideo(frame, writer)
+
+        if save == Save.yes.value:
+            writer = saveVideo(frame, writer)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -113,10 +127,13 @@ elif myinput == Option.camera.value:
 		(grabbed, frame) = vs.read()
 		if not grabbed:
 			break
+
 		frame = imutils.resize(frame, width=700)
 		results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
 		draw(frame, results)
-		writer = saveVideo(frame, writer)
+
+		if save == Save.yes.value:
+			writer = saveVideo(frame, writer)
 
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
@@ -134,7 +151,9 @@ elif myinput == Option.screen.value:
 			frame = cv2.cvtColor(image_np, cv2.COLOR_RGBA2RGB)
 			results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
 			draw(frame, results)
-			writer = saveVideo(frame, writer)
+
+			if save == Save.yes.value:
+				writer = saveVideo(frame, writer)
 
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				break
