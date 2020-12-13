@@ -8,12 +8,18 @@ import cv2
 def detect_people(frame, net, ln, personIdx=0):
     # grab the dimensions of the frame and  initialize the list of
     # results
+    # çerçevenin boyutlarını alın ve sonuçların listesini başlatın
     (H, W) = frame.shape[:2]
     results = []
 
+    # buradaki ne bizim modelimiz blob ise verimizi modelimize uygulan hale getirilmiş hali.
+
     # construct a blob from the input frame and then perform a forward
+    # giriş çerçevesinden bir blob oluşturun ve ardından bir ileri gerçekleştirin
     # pass of the YOLO object detector, giving us our bounding boxes
+    # YOLO nesne dedektörünün geçişi, bize sınırlayıcı kutularımızı verir
     # and associated probabilities
+    # ve ilişkili olasılıklar
     network_input_image_size = 416  # 416  320 allows for faster object detection
     blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (network_input_image_size, network_input_image_size),
                                  swapRB=True, crop=False)

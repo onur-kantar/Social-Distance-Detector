@@ -23,14 +23,18 @@ class Option(Enum):
 	screen = '3'
 
 # load the COCO class labels our YOLO model was trained on
+# YOLO modelimizin eğitim aldığı COCO sınıfı etiketleri yükleyin
 labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
 LABELS = open(labelsPath).read().strip().split("\n")
 
 # derive the paths to the YOLO weights and model configuration
+# YOLO ağırlıklarına ve model konfigürasyonuna giden yolları türetmek
+# yolov3.cfg bizim modelimiz
 weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
+# COCO veri seti (80 sınıf) üzerine eğitilmiş YOLO nesne dedektörümüzü yükleyin
 print("[INFO] loading YOLO from disk...")
 net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
@@ -47,6 +51,7 @@ else:
 
 
 # determine only the *output* layer names that we need from YOLO
+# sadece YOLO'dan ihtiyacımız olan * çıktı * katman adlarını belirle
 ln = net.getLayerNames()
 ln = [ln[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 print(f"Layer Names: {ln}")
@@ -111,8 +116,10 @@ elif myinput == Option.camera.value:
 		start = time.time()
 
 		(grabbed, frame) = vs.read()
+
 		if not grabbed:
 			break
+
 		frame = imutils.resize(frame, width=700)
 		results = detect_people(frame, net, ln, personIdx=LABELS.index("person"))
 		draw(frame, results)
