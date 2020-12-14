@@ -167,7 +167,7 @@ elif myinput == Option.screen.value:
 			end = time.time()
 			print(1 / (end - start))
 else:
-	print("Yanlış Değer Giriniz")
+	print("Yanlış Değer Girdiniz")
 cv2.destroyAllWindows()
 
 
