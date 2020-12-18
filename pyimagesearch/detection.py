@@ -131,7 +131,7 @@ def draw(frame, results):
 
     # draw the total number of social distancing violations on the
     # output frame
-    text = "Social Distancing Violations: {}".format(len(violate))
+    text = "Sosyal Mesafe Ihlalleri: {}".format(len(violate))
     cv2.putText(frame, text, (10, frame.shape[0] - 25),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.85, (0, 0, 255), 3)
 
