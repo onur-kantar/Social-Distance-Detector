@@ -1,14 +1,16 @@
-# base path to YOLO directory
+# YOLO dizininin yolu
 MODEL_PATH = "yolo-coco"
 
-# initialize minimum probability to filter weak detections along with
-# the threshold when applying non-maxima suppression
+# Minimum Güven:
+# Olasılık tahmini 0.6'dan daha düşük olan tüm kutuları çıkardıktan sonra
+# Maksimum olmayan bastırma tekniği:
+# nesne için yinelenen ve örtüşen öneri kutuları içinde en uygun temsilleri
+# seçerek örtüşmesi düşük olan kutuları kaldırmayı amaçlar
 MIN_CONF = 0.3
 NMS_THRESH = 0.3
 
-# boolean indicating if NVIDIA CUDA GPU should be used
+# NVIDIA CUDA GPU'nun kullanılması gerekip gerekmediğini belirten değer
 USE_GPU = True
 
-# define the minimum safe distance (in pixels) that two people can be
-# from each other
+# Piksel cinsinden iki kişinin arasındaki minimum güvenli mesafe
 MIN_DISTANCE = 50
