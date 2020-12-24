@@ -57,7 +57,7 @@ def detect_people(frame, net, ln, personIdx=0):
                 box = detection[0:4] * np.array([W, H, W, H])
                 (centerX, centerY, width, height) = box.astype("int")
 
-                # Kutunun sol üst koordinatlarını üretir
+                # Kutunun koordinatlarını üretir
                 x = int(centerX - (width / 2))
                 y = int(centerY - (height / 2))
 
